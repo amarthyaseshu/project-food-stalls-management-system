@@ -43,7 +43,7 @@ public boolean validateNewVendor(VendorPojo vendorpojo) throws ClassNotFoundExce
 		ps1.setInt(1, stall_id);
 		ps1.setString(2, stall_name);
 		ps1.setInt(3, vendor_id);
-		ps1.executeUpdate();
+		int rows_inserted1 = ps1.executeUpdate();
 
 		String sql = "update vendor set STALL_ID=?,PASSWORD=? WHERE ID=? ";
 
@@ -51,8 +51,17 @@ public boolean validateNewVendor(VendorPojo vendorpojo) throws ClassNotFoundExce
 		ps.setInt(1, stall_id);
 		ps.setString(2, vendor_password);
 		ps.setInt(3, vendor_id);
-		ps.executeUpdate();
-		ConnectionManager.getConnection().close();
+		int rows_inserted = ps.executeUpdate();
+
+		if (rows_inserted > 0 && rows_inserted1 > 0) {
+			System.out.println("Your Primary Details Added Succesfully");
+			ConnectionManager.getConnection().close();
+		} else {
+			System.err.println(
+					"Sorry The Details You Are Trying To Add, Had Not Been Added. Please Check And Enter Valid Details");
+			ConnectionManager.getConnection().close();
+
+		}
 
 	}
 
@@ -90,8 +99,17 @@ public boolean validateNewVendor(VendorPojo vendorpojo) throws ClassNotFoundExce
 		ps.setString(2, item_name);
 		ps.setInt(3, stall_id);
 		ps.setInt(4, item_price);
-		ps.executeUpdate();
-		ConnectionManager.getConnection().close();
+		int rows_inserted = ps.executeUpdate();
+
+		if (rows_inserted > 0) {
+			System.out.println("Items Added Succesfully");
+			ConnectionManager.getConnection().close();
+		} else {
+			System.err.println(
+					"Sorry The Items You Are Trying To Add, Had Not Been Added. Please Check And Enter Valid Details");
+			ConnectionManager.getConnection().close();
+
+		}
 	}
 
 	// removing items by the vendor
@@ -106,9 +124,17 @@ public boolean validateNewVendor(VendorPojo vendorpojo) throws ClassNotFoundExce
 
 		ps.setInt(1, remove_item_id);
 
-		ps.executeUpdate();
+		int rows_deleted = ps.executeUpdate();
 
-		ConnectionManager.getConnection().close();
+		if (rows_deleted > 0) {
+			System.out.println("Items Removed Succesfully");
+			ConnectionManager.getConnection().close();
+		} else {
+			System.err.println(
+					"Sorry The Items You Are Trying To Remove, Had Not Been Removed. Please Check And Enter Valid Details");
+			ConnectionManager.getConnection().close();
+
+		}
 	}
 
 	// updating items by the vendor
@@ -123,9 +149,17 @@ public boolean validateNewVendor(VendorPojo vendorpojo) throws ClassNotFoundExce
 		ps.setString(1, item_name);
 		ps.setInt(2, item_price);
 		ps.setInt(3, item_id);
-		ps.executeUpdate();
+		int rows_updated = ps.executeUpdate();
 
-		ConnectionManager.getConnection().close();
+		if (rows_updated > 0) {
+			System.out.println("Items Updated Succesfully");
+			ConnectionManager.getConnection().close();
+		} else {
+			System.err.println(
+					"Sorry The Items You Are Trying To Update, Had Not Been Updated. Please Check And Enter Valid Details");
+			ConnectionManager.getConnection().close();
+
+		}
 	}
 
 	// view items by the vendor
@@ -151,5 +185,27 @@ public boolean validateNewVendor(VendorPojo vendorpojo) throws ClassNotFoundExce
 		return viewing_items;
 	}
 
+	// vendor updating the items status(ordered by employee)
+	public static void updateOrders(int order_id, String order_status) throws ClassNotFoundException, SQLException {
+
+		String sql = "update orders set order_status=? where id=?";
+		
+		PreparedStatement ps = ConnectionManager.getConnection().prepareStatement(sql);
+
+		ps.setString(1, order_status);
+		ps.setInt(2, order_id);
+		
+		int rows_updated = ps.executeUpdate();
+
+		if (rows_updated > 0) {
+			System.out.println("Orders Updated Succesfully");
+			ConnectionManager.getConnection().close();
+		} else {
+			System.err.println(
+					"Sorry The Orders You Are Trying To Update, Had Not Been Updated. Please Check And Enter Valid Details");
+			ConnectionManager.getConnection().close();
+
+		}
+	}
 
 }

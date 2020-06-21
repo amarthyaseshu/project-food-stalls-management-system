@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import dao.EmployeeDao;
 import dao.VendorDao;
 import model.ItemPojo;
 import model.VendorPojo;
@@ -21,7 +22,7 @@ public class VendorController {
 		switch (vendor_choice) {
 		// when vendor performs crud operations related to managing stall items
 		case 1: 
-//	rem		System.out.println("Going To Manage Stall Items");
+//	Going To Manage Stall Items
 			int vendor_choice1;
 			do {
 				System.out.println("1.Add items" + "\n" + "2.Update Items" + "\n" + "3.Remove Items" + "\n"
@@ -29,7 +30,6 @@ public class VendorController {
 			vendor_choice1 = Integer.parseInt(br.readLine());
 			if(vendor_choice1==1) {
 				// adding items by the vendor
-//	rem			System.out.println("Going to add items");
 				ItemPojo itempojo = new ItemPojo(0, null, 0);
 VendorPojo vendorpojo = new VendorPojo(0, null, 0);
 VendorDao vendordao = new VendorDao();
@@ -60,8 +60,6 @@ if (add_other_item == 2) {
 			
 			else if(vendor_choice1==2) {
 				// update items by the vendor
-//	rem			System.out.println("Going to update items");
-
 				ItemPojo itempojo = new ItemPojo(0, null, 0);
 				VendorDao vendordao = new VendorDao();
 				int update_other_item;
@@ -89,7 +87,6 @@ if (add_other_item == 2) {
 			}
 			else if (vendor_choice1 == 3) {
 				// remove items by the vendor
-//	rem			System.out.println("Going to remove items");
 int remove_other_item;
 ItemPojo itempojo = new ItemPojo(0, null, 0);
 VendorDao vendordao = new VendorDao();
@@ -108,14 +105,12 @@ if (remove_other_item == 2) {
 } while (remove_other_item == 1);
 			} else if (vendor_choice1 == 4) {
 				// going to view items for the vendor
-//		rem		System.out.println("Going to view items");
 				VendorPojo vendorpojo = new VendorPojo(0, null, 0);
 				VendorDao vendordao = new VendorDao();
 				System.out.println("Please Enter Your Stall ID");
 
 				int stall_id = Integer.parseInt(br.readLine());
 				vendorpojo.setStall_id(stall_id);
-//	rem			vendordao.viewItems(vendorpojo);
 				ArrayList<ItemPojo> viewing_items1 = new ArrayList<>();
 				viewing_items1 = vendordao.viewItems(vendorpojo);
 				System.out.format("%-25s%s%25s%n", "Item ID", "Item Name", "Item Price");
@@ -136,7 +131,27 @@ if (remove_other_item == 2) {
 			break;
 
 		case 2: 
-//	rem		System.out.println("Going To Manage Orders");
+
+			// Going To Manage Orders
+			System.out.println("Please Enter Your Stall ID");
+			int stall_id = Integer.parseInt(br.readLine());
+			EmployeeDao.viewQueue(stall_id);
+			int vendor_u_or_n;
+			do {
+			System.out.println("Do You Want To Update Orders Please Press 1 For Yes And 2 For No");
+			vendor_u_or_n = Integer.parseInt(br.readLine());
+			if (vendor_u_or_n == 1) {
+// update orders
+				System.out.println("Please Provide The Order ID Which Needs To Be Updated");
+				int order_id = Integer.parseInt(br.readLine());
+				System.out.println("Please Provide The Order Status");
+				String order_status = br.readLine();
+				VendorDao.updateOrders(order_id, order_status);
+				vendor_u_or_n = 1;
+			} else if (vendor_u_or_n == 2) {
+				vendor_choice = 4;
+			}
+		} while (vendor_u_or_n != 2);
 break;
 		
 		case 3: 

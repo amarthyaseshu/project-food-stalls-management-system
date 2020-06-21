@@ -1,4 +1,5 @@
 
+
 package dao;
 
 import java.sql.PreparedStatement;
@@ -27,9 +28,6 @@ public class AdminDao {
 			if (admin_id == rs.getInt("id") && admin_password.equalsIgnoreCase(rs.getString("password"))) {
 				ConnectionManager.getConnection().close();
 				return true;
-			} else {
-				ConnectionManager.getConnection().close();
-				return false;
 			}
 		}
 		return false;
@@ -49,7 +47,7 @@ public class AdminDao {
 		PreparedStatement ps = ConnectionManager.getConnection().prepareStatement(sql);
 		ps.setInt(1, vendor_id);
 		ps.setString(2, vendor_name);
-		ps.executeUpdate();
+		int rows_inserted = ps.executeUpdate();
 
 
 		String sql1 = "insert into admin(ID,NAME,VENDOR_ID,PASSWORD)VALUES(?,?,?,?)";
@@ -61,9 +59,17 @@ public class AdminDao {
 		ps1.setInt(3, vendor_id);
 		ps1.setString(4, admin_password);
 
-		ps1.executeUpdate();
+		int rows_inserted1 = ps1.executeUpdate();
 
-		ConnectionManager.getConnection().close();
+		if (rows_inserted > 0 && rows_inserted1 > 0) {
+			System.out.println("A Vendor Had Been Added Succesfully");
+			ConnectionManager.getConnection().close();
+		} else {
+			System.err.println(
+					"Sorry The Vendor You Are Trying To Add, Had Not Been Added. Please Check And Enter Valid Details");
+			ConnectionManager.getConnection().close();
+
+		}
 
 	}
 
@@ -78,15 +84,23 @@ public class AdminDao {
 
 		ps1.setInt(1, vendor_id);
 
-		ps1.executeUpdate();
+		int rows_deleted = ps1.executeUpdate();
 
 		String sql = "delete from vendor where id=?";
 
 		PreparedStatement ps = ConnectionManager.getConnection().prepareStatement(sql);
 
 		ps.setInt(1, vendor_id);
-		ps.executeUpdate();
-		ConnectionManager.getConnection().close();
+		int rows_deleted1 = ps.executeUpdate();
+
+		if (rows_deleted > 0 && rows_deleted1 > 0) {
+			System.out.println("A Vendor Had Been Removed Succesfully");
+			ConnectionManager.getConnection().close();
+		} else {
+			System.err.println(
+					"Sorry The Vendor You Are Trying To Remove, Had Not Been Remove. Please Check And Enter Valid Details. YOU CANNOT REMOVE AN EXISTING VENDOR");
+			ConnectionManager.getConnection().close();
+		}
 
 	}
 

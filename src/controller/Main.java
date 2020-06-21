@@ -22,14 +22,13 @@ public class Main {
 // for selecting the category by the user and moving into their respective interface
 		do {
 			System.out.println("Please select the category you belong to");
-			System.out.println("1. Admin" + "\n" + "2. Vendor" + "\n" + "3.Employee");
+			System.out.println("1. Admin" + "\n" + "2. Vendor" + "\n" + "3. Employee");
 			category_select = Integer.parseInt(br.readLine());
 			// moving to the category depending upon user selection
 			switch (category_select) {
 
 			case 1:
 				// moving to Admin interface
-//	rem		System.out.println("Going to admin test");
 				AdminPojo adminpojo = new AdminPojo();
 				AdminDao admindao = new AdminDao();
 				System.out.println("Please Enter Your ID");
@@ -50,7 +49,6 @@ public class Main {
 				break;
 			case 2:
 				// moving to Vendor interface
-//	rem			System.out.println("Going to vendor test");
 				int vendor_status;
 // After the vendor is added by Admin he should set his stall id,name and password and then only he can perform his operations
 				System.out.println("Are You AN Existing Vendor OR A Newly Added Vendor. Please select Below");
@@ -58,7 +56,7 @@ public class Main {
 				System.out.println("1.Existing Vendor" + "\n" + "2.Newly Added Vendor" + "\n" + "3.Exit");
 				vendor_status = Integer.parseInt(br.readLine());
 				if (vendor_status == 1) {
-//	rem				System.out.println("Moving to existing vendor");
+//Moving to existing vendor
 VendorPojo vendorpojo = new VendorPojo(0, null, 0);
 VendorDao vendordao = new VendorDao();
 System.out.println("Please Enter Your ID");
@@ -76,7 +74,7 @@ if (vendordao.validateExistingVendor(vendorpojo) == true) {
 	vendor_status = 4;
 }
 				} else if (vendor_status == 2) {
-//	rem				System.out.println("moving to newly added vendor");
+//moving to newly added vendor
 					VendorPojo vendorpojo=new VendorPojo(0, null, 0);
 					VendorDao vendordao = new VendorDao();
 					System.out.println("Please Enter Your vendor_id");
@@ -106,7 +104,7 @@ if (vendordao.validateExistingVendor(vendorpojo) == true) {
 				break;
 			case 3:
 				// moving to Employee interface
-//	rem			System.out.println("Going to employee test");
+
 				System.out.println("If You Are A New User Please Sign Up");
 				int emp_select;
 				do {
@@ -161,7 +159,7 @@ if (vendordao.validateExistingVendor(vendorpojo) == true) {
 
 						if (employeedao.validateRegisteredEmployee(employeepojo)) {
 							System.out.println("Login Succesful");
-							EmployeeController.employeeController();
+							EmployeeController.employeeController(employeepojo);
 						} else {
 							System.err
 									.println(
@@ -181,7 +179,6 @@ if (vendordao.validateExistingVendor(vendorpojo) == true) {
 		}
 		// If user selected faulty option
 		while (category_select != 1 && category_select != 2 && category_select != 3);
-
 	}
 	}
 

@@ -9,6 +9,7 @@ import utility.ConnectionManager;
 
 public class EmployeeDaoImpl extends EmployeeDao {
 
+	// registering the employee(adding employee details into database)
 	@Override
 	public void AddEmployee(EmployeePojo employeepojo) throws ClassNotFoundException, SQLException {
 
@@ -30,12 +31,20 @@ public class EmployeeDaoImpl extends EmployeeDao {
 			ps.setString(5, emp_address);
 			ps.setString(6, emp_password);
 
-			ps.executeUpdate();
+			int rows_inserted = ps.executeUpdate();
 
-			ConnectionManager.getConnection().close();
+			if (rows_inserted > 0) {
+				System.out.println("Employee Registration  Succesfull");
+				ConnectionManager.getConnection().close();
+			} else {
+				System.err.println(
+						"Sorry For The Inconvenience! Registration Failed,Please Give Valid Details And Try Again. Thank You For Your Patience");
+				ConnectionManager.getConnection().close();
+			}
 
 	}
 
+// validating the employee while login
 	@Override
 	public boolean validateRegisteredEmployee(EmployeePojo employeepojo) throws ClassNotFoundException, SQLException {
 
@@ -54,32 +63,7 @@ public class EmployeeDaoImpl extends EmployeeDao {
 		}
 
 		return false;
+
 	}
-
-//	@Override
-//	public void viewStalls(ArrayList<VendorPojo> viewing_stalls) throws ClassNotFoundException, SQLException {
-//
-////	
-//		String sql = "select * from stall";
-//
-//		PreparedStatement ps = ConnectionManager.getConnection().prepareStatement(sql);
-//
-//		ResultSet rs = ps.executeQuery();
-//		System.out.format("%-25s%s%n", "StallID", "StallName");
-//		while (rs.next()) {
-//			int disp_stall_id = rs.getInt("id");
-//			String disp_stall_name = rs.getString("name");
-//			System.out.println(disp_stall_id + "\t\t\t" + disp_stall_name);
-//			viewing_stalls.add(new VendorPojo(disp_stall_id, disp_stall_name, 0));
-//
-//		}
-//		System.out.format("%-25s%s%n", "StallID", "StallName");
-//		for (VendorPojo stall_display : viewing_stalls) {
-//
-//			System.out.format("%-25s%s%n", stall_display.getStall_id(), stall_display.getStall_name());
-//		}
-//	}
-
-
 
 }

@@ -25,7 +25,6 @@ public class AdminController {
 		switch (admin_category) {
 		// to add vendors
 		case 1:
-//	remove		System.out.println("going to add vendors");
 			VendorPojo vendorpojo = new VendorPojo(0, null, 0);
 			AdminDao admindao = new AdminDao();
 			int add_other_vendor;
@@ -47,7 +46,6 @@ public class AdminController {
 			break;
 		// to remove vendors
 		case 2:
-//	remove		System.out.println("going to remove vendors");
 			AdminDao admindao1 = new AdminDao();
 			VendorPojo vendorpojo1 = new VendorPojo(0, null, 0);
 			int remove_other_vendor;
@@ -69,8 +67,6 @@ public class AdminController {
 			break;
 		// to view vendors
 		case 3:
-//	rem		System.out.println("going to view vendors");
-
 			AdminDao admindao2 = new AdminDao();
 			VendorPojo vendorpojo2 = new VendorPojo(0, null, 0);
 			ArrayList<VendorPojo> viewing_vendor1 = new ArrayList<>();
