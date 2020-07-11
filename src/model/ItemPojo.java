@@ -1,9 +1,9 @@
 package model;
 
 public class ItemPojo {
-	int item_id;
-	String item_name;
-	int item_price;
+	private int item_id;
+	private String item_name;
+	private int item_price;
 
 	public int getItem_id() {
 		return item_id;

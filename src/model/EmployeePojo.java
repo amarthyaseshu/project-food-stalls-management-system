@@ -2,10 +2,10 @@ package model;
 
 public class EmployeePojo {
 
-	int emp_id;
-	String emp_name;
-	String emp_mobilenum;
-	String emp_email;
+	private int emp_id;
+	private String emp_name;
+	private String emp_mobilenum;
+	private String emp_email;
 
 	public String getEmp_mobilenum() {
 		return emp_mobilenum;

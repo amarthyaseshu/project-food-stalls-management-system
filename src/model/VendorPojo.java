@@ -2,11 +2,11 @@ package model;
 
 public class VendorPojo {
 
-	int vendor_id;
-	String vendor_name;
-	int stall_id;
-	String vendor_password;
-	String stall_name;
+	private int vendor_id;
+	private String vendor_name;
+	private int stall_id;
+	private String vendor_password;
+	private String stall_name;
 
 	public String getStall_name() {
 		return stall_name;
